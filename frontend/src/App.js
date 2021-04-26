@@ -1,18 +1,23 @@
 import './App.css';
-import Home from './Pages/Home'
+import {Home, Vitality, StockAnalysis, Sentiment} from './Pages'
 import { BrowserRouter, Route, Switch} from 'react-router-dom'
 import Header from './Components/Header'
 
 function App() {
   return (
-    <div className="App">
-      <Header />
+    
       <BrowserRouter>
-        <Switch>
-          <Route exact path="/" component={Home}></Route>
-        </Switch>
+        <Header/>
+        <div className="App">
+          <Switch>
+            <Route path="/Vitality" exact component={Vitality}/>
+            <Route path="/StockAI" exact component={StockAnalysis}/>
+            <Route path="/Sentiment" exact component={Sentiment}/>
+            <Route exact path="/" component={Home}/>
+          </Switch>
+        </div>
       </BrowserRouter>
-    </div>
+
   );
 }
 
