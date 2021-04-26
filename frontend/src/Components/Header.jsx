@@ -2,7 +2,7 @@ import react from 'react'
 import '../Styles/header.css'
 import { Navbar, Nav, Form, FormControl, Button } from 'react-bootstrap'
 import logo from '../AlgoArt.png'
-import {Link, BrowserRouter} from 'react-router-dom'
+import {Link} from 'react-router-dom'
 import '../App.css'
 
 
@@ -17,7 +17,6 @@ export default function Header() {
             <Navbar.Brand>Algo-Art</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
-                <BrowserRouter>
                 <Nav className="mr-auto">
                     <Link to="/" className="navlink">Home</Link>
                     {/* <Link to="/"><Nav.Link href="#features">Features</Nav.Link></Link>
@@ -26,7 +25,6 @@ export default function Header() {
                     <Link to="/Vitality" className="navlink">Vitality</Link>
                     <Link to="/Sentiment" className="navlink">Sentiment</Link>
                 </Nav>
-                </BrowserRouter>
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />
                     <Button variant="outline-info">Search</Button>
