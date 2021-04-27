@@ -3,12 +3,13 @@ const express = require('express')
 const cors = require('cors')
 
 // const db = require('./db')
-// const bookRouter = require('./routes/book-router')
+const twitterRouter = require('./routers/twitter-router')
 // const userRouter = require('./routes/user-router')
 // const copyRouter = require('./routes/copy-router')
 // const requestRouter = require('./routes/request-router')
 const path = require('path');
 require('dotenv').config();
+streamHandler = require('./utils/streamHandler');
 //require('dotenv').config({ path: path.resolve(__dirname, '/home/STUDENTS/CSELibrary/unt-library-system/server/.env') });
 
 
@@ -36,6 +37,7 @@ app.use(cors())
 // app.use('/api', bookRouter)
 // app.use('/user', userRouter)
 // app.use('/request', requestRouter)
+app.use('/twitter', twitterRouter)
 
 
 // app.get('/*', function(req, res) {
@@ -59,4 +61,31 @@ app.use(cors())
 
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`))
+
+
+
+// Initialize socket.io
+var io = require('socket.io').listen(server);
+
+var twitter = require('twitter');
+
+
+var client = new Twitter({
+    consumer_key: process.env.CONSUMER_KEY,
+    consumer_secret: process.env.CONSUMER_SECRET,
+    access_token_key: process.env.ACCESS_TOKEN_KEY,
+    access_token_secret: process.env.ACCESS_TOKEN_SECRET
+});
+
+
+const stream = client.stream('statuses/filter', {track: 'cyberpunk', tweet_mode: 'extended', language: 'en'});
+stream.on('data', (data) => {
+   if (!data.retweeted_status) {
+      const tweetText = data?.extended_tweet?.full_text || data.text;
+      console.log(tweetText);
+   }
+});
+stream.on('error', (error) => {
+   throw error;
+});
 
