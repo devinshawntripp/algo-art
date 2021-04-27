@@ -13,7 +13,9 @@ import '../App.css'
 export default function Header() {
     return (
         <Navbar collapseOnSelect bg="dark" variant="dark" expand="sm" className="App-header">
-            <img src={logo} className="Header-logo" alt="logo"/>
+            <div className="Header-flip">
+                <img src={logo} className="Header-logo" alt="logo"/>
+            </div>
             <Navbar.Brand>Algo-Art</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
@@ -24,6 +26,7 @@ export default function Header() {
                     <Link to="/"><Nav.Link href="#Apis">Apis</Nav.Link></Link> */}
                     <Link to="/Vitality" className="navlink">Vitality</Link>
                     <Link to="/Sentiment" className="navlink">Sentiment</Link>
+                    <Link to="/StockAI" className="navlink">Stock AI</Link>
                 </Nav>
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />

@@ -5,6 +5,6 @@ import React from 'react'
 
 export default function StockAnalysis() {
     return (
-        <div>some sentiment</div>
+        <div>some Stocks</div>
     )
 }
