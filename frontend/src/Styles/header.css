@@ -19,7 +19,7 @@
 
 @media (prefers-reduced-motion: no-preference) {
   .Header-logo {
-    animation: Header-logo-spin infinite 3s linear;
+    animation: Header-logo-spin infinite 1s linear;
   }
   /* .Header-flip {
     animation: Header-logo-flip infinite 5s linear;

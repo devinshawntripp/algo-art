@@ -1,0 +1,8 @@
+.tweet {
+  background-color: black !important;
+  margin-top: 3rem;
+  padding: 3rem;
+  /* max-width: 50rem;
+  min-width: 50rem; */
+  width: 50rem;
+}

@@ -13,3 +13,13 @@ var twitter = require('twitter');
 // stream.on('error', (error) => {
 //    throw error;
 // });
+
+
+getTweets = async (req, res) => {
+    return null
+}
+
+
+module.exports = {
+    getTweets
+}

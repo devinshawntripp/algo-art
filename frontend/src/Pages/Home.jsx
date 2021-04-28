@@ -35,7 +35,7 @@ export default function Home() {
             </div>
             
             <div style={rowOfCards}>
-            <Card style={cardStyle}>
+            {/* <Card style={cardStyle}>
                 <div style={{marginTop: "1.0rem"}}>Who are we?</div>
             <div style={{marginTop: "50%", width: "75%", marginLeft: "auto", marginRight: "auto"}}>Algorithmic Art is a company that is focused on bringing machine learning applications to your business</div></Card>
             <Card style={cardStyle}>Algorithmic Art is a company that is focused on bringing machine learning applications to your business</Card>
@@ -43,7 +43,7 @@ export default function Home() {
             <Card style={cardStyle}>Many business have access to a wide variety of machine learning models, but are unsure how to use them for there specific use case.
                 That's where we come in. Algorithmic Art will fine tune these algorithms to work for your specific business and use case. Everything from sentiment analysis,
                 to determining stock in inventory by calibrating patterns in your business. 
-            </Card>
+            </Card> */}
             </div>
         </div>
         </>
