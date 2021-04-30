@@ -1,59 +1,93 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState, useEffect, useCallback, useContext} from 'react'
 import socketIOClient from 'socket.io-client'
 import TweetCard from './TweetCard'
+import {SocketContext} from '../Context/socket';
 
 
 
 
 
 export default function TweetList() {
-    // const [tweetObj, setTweetObj] = useState({
-    //     items: []
-    // })
+    // , {reconnection: true, forceNew: false}
+    // {upgrade: false, reconnection: false, transports: ['websocket'], forceNew: false}
     const [tweetItems, setTweetItems] = useState([])
-    const [connected, setConnected] = useState(false)
-    var socket = null
+    const socket = useContext(SocketContext)
+    
+   
+    const sleep = (milliseconds) => {
+        return new Promise(resolve => setTimeout(resolve, milliseconds))
+    }
 
-  
+    const handleAdd = useCallback((data) => {
+        console.log(tweetItems)
+        var count = 15
+        let newList = [...tweetItems, data]
 
-    useEffect(() => {
-        socket = socketIOClient('http://localhost:8174/')
-        
-        socket.on('connect', () => {
-            console.log("Socket has successfully connected to server")
-            setConnected(true)
+        let reverseList = newList.reverse()
+
+        let filteredList = newList.filter(function(d) {
+            if(count != 0){
+                count--; return true
+            } 
+            return false
         })
-    },[connected])
+
+        setTweetItems(newList)
+    })
+
+    
 
     useEffect(() => {
-        
 
-        if(connected){
-            socket.on('tweets', data => {
-                console.info(data);
-                let newList = [...tweetItems, data]
-                console.log(newList)
-                setTweetItems(newList)
+        socket.on('message', (message) => {
+            console.log("Recieved a message: ", message)
+        })
+
+        
+        socket.on('tweets', handleAdd)
+
+        return () => {
+            socket.on('disconnect', () => {
+                socket.off("tweets");
+                socket.off('message')
+                socket.removeAllListeners("tweets")
+                console.log("Socket Disconnected")
+                // socket.emit('connectionClose', () => {})
             })
         }
-        return () => {
-            if(socket){
-                socket.on('disconnect', () => {
-                    socket.off("tweets");
-                    socket.removeAllListeners("tweets")
-                    setConnected(false)
-                    console.log("Socket Disconnected")
-                })
-            }
-            
-        }
+
+    }, [tweetItems.length])
+
+    // useEffect(() => {
         
-    }, [connected])
+
+    //     if(connected){
+            // socket.on('tweets', data => {
+            //     console.info(data);
+            //     var newList = [...tweetItems, data]
+            //     // newList = newList.reverse()
+            //     console.log(newList)
+            //     setTweetItems(newList)
+            // })
+    //     }
+        // return () => {
+        //     if(socket){
+        //         socket.on('disconnect', () => {
+        //             socket.off("tweets");
+        //             socket.removeAllListeners("tweets")
+        //             setConnected(false)
+        //             console.log("Socket Disconnected")
+        //         })
+        //     }
+            
+        // }
+        
+    // }, [connected])
 
     return (
-        <div style={{ height: "30rem", scrollY: "auto", overflowY: "auto"}} >
+        <div style={{ height: "300rem", scrollY: "auto", overflowY: "auto"}} >
             {tweetItems.map(tweet => {
-                return <TweetCard tweetText={tweet.text}/>
+                return <TweetCard tweet={tweet}/>
             })}
         </div>
     )

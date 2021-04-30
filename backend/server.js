@@ -5,23 +5,34 @@ var socketio = require('socket.io')
 const bodyparser = require('body-parser')
 const PORT = process.env.PORT || 8174
 const app = express()
+const cors = require("cors")
 // const cors = require('cors')
 const twitterRouter = require('./routers/twitter-router')
 require('dotenv').config();
+// var allowedOrigins = "http://localhost:* http://127.0.0.1:*";
+var allowedOrigins = "http://localhost:3000";
 // streamHandler = require('./utils/streamHandler');
-var twitter = require('twitter');
 
 //require('dotenv').config({ path: path.resolve(__dirname, '/home/STUDENTS/CSELibrary/unt-library-system/server/.env') });
-
+const options = {
+  cors: true,
+  origins: ['http://127.0.0.1:3000'],
+};
 const server = http.createServer(app);
-const io = socketio(server, {
-   cors: {
-     origin: "*",
-     methods: ["PUT", "GET", "POST", "DELETE", "OPTIONS"],
-     allowedHeaders:["secretHeader"],
-     credentials: true
-   }
-   });
+// const io = socketio(server, {
+//    cors: {
+//      origin: allowedOrigins,
+//      methods: ["PUT", "GET", "POST", "DELETE", "OPTIONS"],
+//      allowedHeaders:["secretHeader"],
+//      credentials: true
+//    }
+// });
+app.use('*', cors());
+app.use(express.json())
+
+const io = socketio(server, options)
+
+
 
 
 
