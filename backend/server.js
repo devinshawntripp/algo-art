@@ -43,6 +43,15 @@ const io = socketio(server, options)
 // app.use('/twitter', twitterRouter)
 require('./routers/twitter-router.js')(app, io)
 
+if (process.env.NODE_ENV === "production") {
+  app.use(express.static(path.join(__dirname, "../build")));
+  app.get("*", (request, res) => {
+    res.sendFile(path.join(__dirname, "../build", "index.html"));
+  });
+} else {
+  port = 8174;
+}
+
 
 
 // app.listen(PORT, () => console.log(`Server running on port ${PORT}`))

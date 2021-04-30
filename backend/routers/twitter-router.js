@@ -22,9 +22,9 @@ module.exports = (app, io) => {
     //twitter stream
     const streamtweets = async () => {
         console.log("Resuming stream for: " + app.locals.searchTerm)
-        client.stream('statuses/filter', {track: app.locals.searchTerm, tweet_mode: 'extended', language: 'en'}, (streamData) => {
-            streamData.on('data', (data) => {
-                sleep(1000)
+        client.stream('statuses/filter', {track: app.locals.searchTerm, tweet_mode: 'extended', language: 'en'}, async (streamData) => {
+            streamData.on('data', async (data) => {
+                await sleep(3000)
                 sendMessage(data)
              });
 
