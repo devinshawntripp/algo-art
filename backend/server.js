@@ -16,7 +16,7 @@ var allowedOrigins = "http://localhost:3000";
 //require('dotenv').config({ path: path.resolve(__dirname, '/home/STUDENTS/CSELibrary/unt-library-system/server/.env') });
 const options = {
   cors: true,
-  origins: ['http://127.0.0.1:3000'],
+  origins: ['http://127.0.0.1:8174'],
 };
 const server = http.createServer(app);
 // const io = socketio(server, {
